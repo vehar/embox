@@ -35,7 +35,6 @@ cppflags = -I$(ROOT_DIR)/third-party/gcc/include \
 PKG_BUILD_DIR  := $(BUILD_DIR)/build
 
 $(CONFIGURE) :
-	export EMBOX_GCC_LINK=full; \
 	mkdir -p $(PKG_BUILD_DIR) && cd $(PKG_BUILD_DIR) && ( \
 		. $(EMBOX_GCC_ENV) && $(PKG_SOURCE_DIR)/configure \
 			--target=$(AUTOCONF_TARGET_TRIPLET) \
@@ -44,14 +43,10 @@ $(CONFIGURE) :
 			--disable-tls \
 			--disable-nls \
 			--disable-libssp \
+			--without-headers \
 			--without-newlib \
 			--enable-languages=c,c++ \
 			--enable-soft-float \
-			CC_FOR_TARGET=$(EMBOX_GCC) \
-			CXX_FOR_TARGET=$(EMBOX_GXX) \
-			CFLAGS_FOR_TARGET="$(cppflags) $(target_libgcc_cppflags)" \
-			CXXFLAGS_FOR_TARGET="$(cppflags) -fpermissive" \
-			LDFLAGS_FOR_TARGET="" \
 	)
 	touch $@
 
@@ -64,23 +59,7 @@ $(BUILD) :
 			RAW_CXX_FOR_TARGET=$(EMBOX_GXX) \
 			AR_FOR_TARGET=ar \
 			RANLIB_FOR_TARGET=ranlib \
-         	TARGET-libiberty="LINKER=true CC=true AR=true RANLIB=touch all" \
-         	TARGET-zlib="LINKER=true CC=true AR=true RANLIB=touch all" \
-         	TARGET-libbacktrace="LINKER=true CC=true AR=touch \
-				LINK=\"mkdir -p .libs && true\" \
-				LIBS=\"&& touch .libs/libbacktrace.a\" all" \
-         	TARGET-libcpp="LINKER=true CC=true CXX=true POSTCOMPILE=true \
-				AR=true RANLIB=touch all" \
-         	TARGET-libdecnumber="LINKER=true CC=true AR=true RANLIB=touch all" \
-         	TARGET-fixincludes="LINKER=true CC=true AR=true all" \
-			TARGET-lto-plugin="CC=true LIBTOOL=true all" \
-         	TARGET-gcc="LINKER=true CC=true CXX=true \
-				GCC_FOR_TARGET=$(EMBOX_GCC) \
-				AR=true RANLIB=true libgcc-support stmp-int-hdrs" \
-         	TARGET-target-libgcc="PICFLAG= EXTRA_PARTS= all" \
-         	TARGET-target-libstdc++-v3="SUBDIRS=\"include libsupc++\" \
-				all-recursive" \
-         	all-target-libgcc all-target-libstdc++-v3; \
+			all-target-libgcc all-target-libstdc++-v3; \
 	)
 	touch $@
 
