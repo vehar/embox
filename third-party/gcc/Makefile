@@ -1,16 +1,16 @@
 
 PKG_NAME := gcc
 
-#PKG_VER  := 4.8.1
-PKG_VER  := 6.3.0
+PKG_VER  := 4.8.1
+#PKG_VER  := 6.3.0
 
 PKG_SOURCES := http://ftp.gnu.org/gnu/gcc/$(PKG_NAME)-$(PKG_VER)/$(PKG_NAME)-$(PKG_VER).tar.gz
 
-#PKG_MD5     := 74cc12b7afe051ab7d0e00269e49fc9b
-PKG_MD5 := 6e5ea04789678f1250c1b30c4d9ec417
+PKG_MD5     := 74cc12b7afe051ab7d0e00269e49fc9b
+#PKG_MD5 := 6e5ea04789678f1250c1b30c4d9ec417
 
-#PKG_PATCHES := pkg_patch.txt
-PKG_PATCHES := patch.txt
+PKG_PATCHES := pkg_patch.txt
+#PKG_PATCHES := patch.txt
 
 include $(EXTBLD_LIB)
 
@@ -38,6 +38,7 @@ $(CONFIGURE) :
 	mkdir -p $(PKG_BUILD_DIR) && cd $(PKG_BUILD_DIR) && ( \
 		. $(EMBOX_GCC_ENV) && $(PKG_SOURCE_DIR)/configure \
 			--target=$(AUTOCONF_TARGET_TRIPLET) \
+			--with-cross-host=embox \
 			--disable-multilib \
 			--disable-shared \
 			--disable-tls \
