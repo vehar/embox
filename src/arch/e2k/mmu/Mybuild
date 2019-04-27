@@ -1,0 +1,8 @@
+package embox.arch.e2k
+
+module mmu extends embox.arch.mmu {
+	option number log_level=1
+	option number page_size=4096
+	source "mmu.c"
+	source "mmu.h"
+}
