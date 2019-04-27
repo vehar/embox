@@ -35,7 +35,7 @@ void *mmap(void *addr, size_t len, int prot, int flags, int fd, off_t off) {
 		return MAP_FAILED;
 	}
 
-	addr = (void *) binalign_bound((uint32_t) addr, VMEM_PAGE_SIZE);
+	addr = (void *)binalign_bound((uintptr_t) addr, VMEM_PAGE_SIZE);
 	len = binalign_bound(len, VMEM_PAGE_SIZE);
 
 	if (flags & MAP_ANONYMOUS) {
