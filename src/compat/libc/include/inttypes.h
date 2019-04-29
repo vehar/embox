@@ -172,6 +172,7 @@ __END_DECLS
 #define    PRIXLEAST16 "X"
 #define    PRIXFAST16  "X"
 
+#if defined(__ARM_ARCH) || defined (__e2k__)
 #define    PRIo32      "lo"
 #define    PRIoLEAST32 "lo"
 #define    PRIoFAST32  "lo"
@@ -196,6 +197,59 @@ __END_DECLS
 #define    PRIxPTR     "llx"
 #define    PRIXPTR     "llX"
 
+#elif defined (i386)
+
+#define    PRIo32      "o"
+#define    PRIoLEAST32 "o"
+#define    PRIoFAST32  "o"
+#define    PRIu32      "u"
+#define    PRIuLEAST32 "u"
+#define    PRIuFAST32  "u"
+#define    PRIx32      "x"
+#define    PRIxLEAST32 "x"
+#define    PRIxFAST32  "x"
+#define    PRIX32      "X"
+#define    PRIXLEAST32 "X"
+#define    PRIXFAST32  "X"
+
+#define    PRIu64      "lu"
+#define    PRIi64      "li"
+#define    PRIx64      "lx"
+#define    PRIX64      "lX"
+#define    PRId64      "ld"
+
+#define    PRIoPTR     PRIo32
+#define    PRIuPTR     PRIu32
+#define    PRIxPTR     "x"
+#define    PRIXPTR     "X"
+
+#else
+
+#define    PRIo32      "o"
+#define    PRIoLEAST32 "o"
+#define    PRIoFAST32  "o"
+#define    PRIu32      "u"
+#define    PRIuLEAST32 "u"
+#define    PRIuFAST32  "u"
+#define    PRIx32      "x"
+#define    PRIxLEAST32 "x"
+#define    PRIxFAST32  "x"
+#define    PRIX32      "X"
+#define    PRIXLEAST32 "X"
+#define    PRIXFAST32  "X"
+
+#define    PRIu64      "lu"
+#define    PRIi64      "li"
+#define    PRIx64      "lx"
+#define    PRIX64      "lX"
+#define    PRId64      "ld"
+
+#define    PRIoPTR     PRIo32
+#define    PRIuPTR     PRIu32
+#define    PRIxPTR     "x"
+#define    PRIXPTR     "X"
+
+#endif
 
 #define    PRIoMAX     PRIo32
 #define    PRIuMAX     PRIu64
